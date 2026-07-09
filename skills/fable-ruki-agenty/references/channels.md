@@ -12,6 +12,8 @@
 
 ### Прекондишн перед первым Codex-диспатчем конвейера
 
+Прогоняет gh-рука своим Bash, не Fable (запрет № 1 SKILL.md); шаг входит в чек-лист § Старт конвейера.
+
 ```bash
 CODEX_PLUGIN="$(printf '%s\n' "$HOME"/.claude/plugins/cache/openai-codex/codex/*/ | sort -V | tail -1)"
 node "${CODEX_PLUGIN%/}/scripts/codex-companion.mjs" setup --json   # ждать ready:true и auth.loggedIn:true

@@ -1,6 +1,8 @@
 # Fable Ruki-Agenty (Fable Hands-Agents)
 
-A manually-invoked orchestration mode for Claude Fable 5 under tight usage limits: Fable never writes or reads code itself. It writes complete, self-sufficient specs into GitHub issue bodies and dispatches ready tasks to hands: coding, code review, gh operations, DoD verification and file placement go to Codex (GPT 5.5, `codex` plugin); scouting, reading and research go to Grok workers via Orca. Sonnet and Haiku are not used for any role.
+A manually-invoked orchestration mode for Claude Fable 5 under tight usage limits: Fable is the head and nothing else. It thinks, resolves forks and writes complete, self-sufficient specs into GitHub issue bodies; all mechanics — coding, review, gh operations, reading, scouting, DoD verification — go to cheap hands.
+
+A hand is a pair of harness and model, and the pipeline does not depend on it: it knows four operations only (dispatch, resume the thread, fresh context, report). Default channels are Codex for coding and verification and Orca as an option for scouting in visible terminals; their mechanics live in [`references/channels.md`](references/channels.md), so swapping a hand means editing a table, not the pipeline.
 
 ## Core rules
 
@@ -8,7 +10,7 @@ A manually-invoked orchestration mode for Claude Fable 5 under tight usage limit
 - **Saturation loop for research and diagnosis.** When the list of things to investigate is itself the subject of the investigation (market/competitor research, debugging, incident analysis), a single scout works one long context until the map stops growing — a mechanical stop rule: five searches in a row yielding no new entity. Only the resulting closed list is fanned out to parallel scouts, each carrying the full map and required to report "new entities not on the map". Then integrate, and loop if the map grew.
 - **Issue-first, no exceptions.** Every task becomes a GitHub issue whose body is a full spec (goal, context, resolved forks, steps, boundaries, DoD) before anything is dispatched.
 - **Dispatch by pointer.** The implementer reads the issue body via `gh issue view N`; the prompt is just an operational envelope.
-- **Fresh-context verifier per task.** A separate Codex verifier runs the DoD check; the one who built it never accepts it.
+- **Fresh-context verifier per task.** A separate hand runs the DoD check; the one who built it never accepts it. An "unverifiable" verdict is legal and does not close the issue.
 - **Escalation ladder on failure:** two reworks by the same implementer → fresh implementer with the verifier's diagnosis → `blocked` label and a short report to the user.
 - **Async spec-ahead.** While an implementer works, Fable writes the next specs instead of waiting.
 - Parallelism is decided by the split gate first and file overlap second, never by agent count: same-file tasks run sequentially with direct commits to main; file-disjoint groups whose briefs are already frozen may run in parallel worktrees.

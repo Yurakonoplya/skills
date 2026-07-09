@@ -7,6 +7,7 @@
 | Скилл | Что делает |
 |---|---|
 | [grill-me](skills/grill-me/) | Прожаривает план вопросами до общего понимания, по одному вопросу за раз |
+| [fable-ruki-agenty](skills/fable-ruki-agenty/) | Оркестрация руками-агентами: спека в теле issue, диспатч указателем, отдельный верификатор. Делить работу нельзя, пока находки одной части могут изменить постановку другой |
 
 ## Установка
 
@@ -20,8 +21,10 @@ cp -r skills/grill-me ~/.claude/skills/
 cp -r skills/grill-me .claude/skills/
 ```
 
-Затем вызвать: `/grill-me` — или просто попросить агента о том, что описано в `description` скилла.
+Затем вызвать: `/grill-me` — или просто попросить агента о том, что описано в `description` скилла. `fable-ruki-agenty` вызывается только явно (`/fable-ruki-agenty`): у него `disable-model-invocation: true`, сама модель его не подтягивает.
 
 ## Атрибуция
 
-`grill-me` взят из [serejaris/personal-corp-skills](https://github.com/serejaris/personal-corp-skills/tree/main/skills/grill-me) и распространяется под лицензией MIT — её копия лежит рядом со скиллом.
+Оба скилла взяты из [serejaris/personal-corp-skills](https://github.com/serejaris/personal-corp-skills) и распространяются под лицензией MIT — её копия лежит рядом с каждым скиллом.
+
+`fable-ruki-agenty` здесь доработан: добавлены **гейт деления** (делить работу между агентами нельзя, пока выполнение одной части может изменить постановку другой) и **петля насыщения** для исследования и диагностики; оба README приведены в соответствие со `SKILL.md`. Доработка предложена в апстрим — [issue #11](https://github.com/serejaris/personal-corp-skills/issues/11).

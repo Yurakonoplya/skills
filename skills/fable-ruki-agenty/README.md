@@ -2,7 +2,7 @@
 
 A manually-invoked orchestration mode for Claude Fable 5 under tight usage limits: Fable is the head and nothing else. It thinks, resolves forks and writes complete, self-sufficient specs into GitHub issue bodies; all mechanics — coding, review, gh operations, reading, scouting, DoD verification — go to cheap hands.
 
-A hand is a pair of harness and model, and the pipeline does not depend on it: it knows four operations only (dispatch, resume the thread, fresh context, report). Default channels are Codex for coding and verification and Orca as an option for scouting in visible terminals; their mechanics live in [`references/channels.md`](references/channels.md), so swapping a hand means editing a table, not the pipeline.
+A hand is a pair of harness and model, and the pipeline does not depend on it: it knows roles (scout, implementer, gh-hand, verifier, reviewer) and four operations only (dispatch, resume the thread, fresh context, report). Every binding to concrete tools and models lives in a single file — [`references/channels.md`](references/channels.md); by default the hands are Claude Code subagents, and swapping the environment or a hand means editing that file, not the pipeline.
 
 ## Core rules
 
